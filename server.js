@@ -20,7 +20,7 @@ io.on('connection', socket => {
 
 	socket.on('addNote', (note) =>{
 		console.log(note);
-		socket.broadcast.emit('noteAdd', {innerHTML : note.innerHTML, id : note.id});
+		socket.broadcast.emit('noteAdded', {id : note.id});
 		console.log('emited');
 	});
 	

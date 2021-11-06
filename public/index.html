@@ -15,14 +15,13 @@
 			<h1>Sticky Notes</h1>
 		</div>
 
-		<button class="add-button" onmousedown="addNote()">add note</button>
+		<button class="add-button" onmousedown="createNote()">add note</button>
 		<button class="draw-button" onmousedown="drawInCanvas()">draw in canvas</button>
 		<button class="clear-button" onmousedown="clearDraw()">clear canvas</button>
 		<button class="undo-button" onmousedown="undoDraw()">undo drawing</button>
 		<button class="delete-button" onmousedown="deleteNotes()">delete notes</button>
 		<input  type="file" id = "image_input" class="image_input">
 		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="main.js"></script>
 	</div>

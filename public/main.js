@@ -5,14 +5,9 @@ const socket = io();
 //broadcast the note add to all the users
 socket.on('noteAdd', (note) => {
 	console.log('note add');
-		console.log(note.innerHTML + " " + note.id );
-		
-		let noteCopy = document.createElement('div');
-		noteCopy.className = 'note';
-		noteCopy.innerHTML = note.innerHTML;
-		noteCopy.id = note.id;
-		noteCopy.style.animationName = 'none'; //Remove fade-in animation
-		document.body.appendChild(noteCopy);	
+	console.log(note.id );
+	
+	addNote(note.id);
 });
 
 /**
@@ -144,15 +139,17 @@ document.getElementById('image_input').onchange = function(e) {
 /**
  * addNote creates a new sticky note and adds it to the document.
  */
-let notesCount = 0; //Used to give a unique id to each note
+function createNote(){
+	const id = 'note_' + new Date().getTime();
+	addNote(id);
+	socket.emit('addNote',  { id : note.id});
+}
 
-function addNote(){
-    notesCount++;
-
+function addNote(id){
     //Create note container
     let note = document.createElement('div');
-	note.position = "absolute";
-	note.cursor = "move";
+	  note.position = "absolute";
+	  note.cursor = "move";
     note.onmousedown = selectNote;
     note.ontouchstart = selectNote;
     note.className = 'note';
@@ -169,7 +166,7 @@ function addNote(){
     textBox.placeholder = 'Write your note here'
     textBox.className = 'note-content';
     textBox.onkeydown = keyDown;
-	note.appendChild(textBox);
+	  note.appendChild(textBox);
 	
     //Create the option button for the note
     let optionButton = document.createElement('button');
@@ -178,15 +175,13 @@ function addNote(){
     optionButton.onmousedown = noteMenu;
     optionButton.ontouchstart = noteMenu;
     note.appendChild(optionButton);
-
-
-    note.id = 'note' + notesCount;
+	
+    note.id = id;
 
     document.body.appendChild(note); //Add the note to the document
 
     titleInput.focus(); //Set focus to the title of the new note
-	
-	socket.emit('addNote',  { innerHTML : note.innerHTML, id : note.id})
+
 }
 
 /**
@@ -195,9 +190,9 @@ function addNote(){
 let selectedNote = null; //The note the user clicks on to move around
 
 function selectNote() {
-    selectedNote = this;
+  selectedNote = this;
 	
-	socket.emit('sticky-note', selectedNote);
+	//socket.emit('sticky-note', selectedNote);
 	
 	document.onmousemove = snapNote;
 	document.ontouchmove = snapNoteTouch;
@@ -576,7 +571,7 @@ function noteMenu() {
     deleteButton.appendChild(deleteIcon);
     noteMenu.appendChild(deleteButton);
 
-    this.parentNode.appendChild(noteMenu); // Add the menu to the note
+    selectedNote.appendChild(noteMenu); // Add the menu to the note
 }
 
 /**
