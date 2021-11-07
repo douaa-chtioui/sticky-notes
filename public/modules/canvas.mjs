@@ -14,6 +14,8 @@ const listeners = new Map();
 
 /**
  * on adds add elements to listeners.
+ * @param event
+ * @param callback
  */
 function on(event, callback) {
   listeners.set(event, callback);
@@ -48,6 +50,9 @@ function beginPath() {
   ctx.beginPath();
 }
 
+/**
+ * stop stops the drawing.
+ */
 function stop() {
   drawing = false;
 }
@@ -101,7 +106,7 @@ function changeColor(newColor) {
 }
 
 /**
- * clear eraises all the existing drawing.
+ * clear erases all the existing drawing.
  * @param notify
  */
 function clear(notify = true) {
