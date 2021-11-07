@@ -10,21 +10,36 @@ const io = socketio(server);
 app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', socket => {
-	socket.broadcast.emit('test', 'testing if work');
-	socket.on('drawClick', (data) =>{
-		console.log(data);
-		//io.emit('draw', {event : data.event,lX : data.x, lY : data.y, cX : data.currentX, cY : data.currentY, color: data.color});
-		io.emit('draw', data);
-		//socket.emit('draw', data);
-	});
 
-	socket.on('addNote', (note) =>{
-		console.log(note);
-		socket.broadcast.emit('noteAdded', {id : note.id});
-		console.log('emited');
-	});
-	
-	
+  socket.on('drawingUpdated', (data) => {
+    socket.broadcast.emit('drawingUpdated', data);
+  });
+  socket.on('drawingCleared', () => {
+    socket.broadcast.emit('drawingCleared');
+  });
+  socket.on('beginPath', () => {
+    socket.broadcast.emit('beginPath');
+  });
+
+  socket.on('noteAdded', (data) => {
+    socket.broadcast.emit('noteAdded', data);
+  });
+  socket.on('noteTitleUpdated', (data) => {
+    socket.broadcast.emit('noteTitleUpdated', data);
+  });
+  socket.on('noteTextUpdated', (data) => {
+    socket.broadcast.emit('noteTextUpdated', data);
+  });
+  socket.on('noteColorUpdated', (data) => {
+    socket.broadcast.emit('noteColorUpdated', data);
+  });
+  socket.on('noteDeleted', (data) => {
+    socket.broadcast.emit('noteDeleted', data);
+  });
+  socket.on('notesDeleted', () => {
+    socket.broadcast.emit('notesDeleted');
+  });
+
 });
 
 

@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Sticky Notes</title>
-        <link href="main.css" type="text/css" rel="stylesheet"/>
-        <link href="images/StickyNotesFaviconV3.png" rel="icon">
-    </head>
-    <body>
-	<div id="container">
-		<canvas id = "canvas"> </canvas>
-		<div class="spacer"></div>
-		<div class="header">
-			<h1>Sticky Notes</h1>
-		</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sticky Notes</title>
+    <link href="main.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" type="text/css" rel="stylesheet" />
+    <link href="images/StickyNotesFaviconV3.png" rel="icon" />
+    <script type="module" src="main.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <canvas id="canvas"> </canvas>
+      <div class="spacer"></div>
+      <div class="header">
+        <h1>Sticky Notes</h1>
+        <i id="add-note-btn" class="fas fa-plus-circle" style="margin: 10px"></i>
+        <i id="delete-notes-btn" class="fas fa-trash" style="margin: 10px"></i>
+        <i id="draw-btn" class="fas fa-pencil-alt" style="margin: 10px"></i>
+        <i id="erase-btn" class="fas fa-eraser" style="margin: 10px"></i>
+        <i id="clear-btn" class="fas fa-broom" style="margin: 10px"></i>
+      </div>
 
-		<button class="add-button" onmousedown="createNote()">add note</button>
-		<button class="draw-button" onmousedown="drawInCanvas()">draw in canvas</button>
-		<button class="clear-button" onmousedown="clearDraw()">clear canvas</button>
-		<button class="undo-button" onmousedown="undoDraw()">undo drawing</button>
-		<button class="delete-button" onmousedown="deleteNotes()">delete notes</button>
-		<input  type="file" id = "image_input" class="image_input">
-		
-		<script src="/socket.io/socket.io.js"></script>
-		<script src="main.js"></script>
-	</div>
-    </body>
+      <input id="image_input" type="file" class="image_input" />
+
+      <script src="/socket.io/socket.io.js"></script>
+    </div>
+  </body>
 </html>
